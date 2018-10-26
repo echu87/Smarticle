@@ -1,0 +1,36 @@
+ul {
+    position: relative;
+    z-index: 2;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: white;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+    height: 55px;
+}
+
+li {
+    float: left;
+}
+
+li a {
+    display: block;
+    color: black;
+    text-align: center;
+    margin: 14px 16px;
+    text-decoration: none;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    padding: 5px 10px;
+}
+
+#login, #logo {
+    background: black;
+    color: white;
+    border-radius: 10px;
+}
+
+#login {
+    color: #FDD42F;
+}

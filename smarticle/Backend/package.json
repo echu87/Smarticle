@@ -1,0 +1,23 @@
+{
+  "name": "smarticle",
+  "version": "1.0.0",
+  "description": "Help make sense of the rapidly changing political landscape",
+  "main": "server.js",
+  "scripts": {
+    "p": "nodemon --max-old-space-size=8192 server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Matthew Hobbs, Evan Chu",
+  "license": "ISC",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.2",
+    "cors": "^2.8.4",
+    "express": "^4.16.4",
+    "mongoose": "^5.3.4",
+    "node-cron": "^2.0.3",
+    "nodemon": "^1.18.4",
+    "npm": "^6.4.1",
+    "request": "^2.88.0",
+    "rss-parser": "^3.5.2"
+  }
+}

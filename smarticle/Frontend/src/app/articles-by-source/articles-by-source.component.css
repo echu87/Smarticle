@@ -1,0 +1,122 @@
+.source-articles {
+    margin-left: 420px; 
+    height: calc(100% - 55px); 
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+.source-articles::-webkit-scrollbar {
+    background-color: rgb(120, 128, 153);
+    width: 10px;
+}
+
+.source-articles::-webkit-scrollbar-thumb {
+    background-color: rgb(78, 84, 100);
+}
+
+.source-navigation {
+    float: left;
+    position: relative;
+    margin: 0;
+    padding: 10px;
+    height: calc(100% - 75px); 
+    width: 400px;
+    background: white;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.source-navigation::-webkit-scrollbar {
+    background-color: rgb(120, 128, 153);
+    width: 10px;
+}
+
+.source-navigation::-webkit-scrollbar-thumb {
+    background-color: rgb(78, 84, 100);
+}
+
+.feeds {
+    margin: 50px;
+}
+
+.sources {
+    cursor: pointer;
+    margin: 0;
+    background: #E7E7E7;
+    padding: 10px;
+    padding-left: 15px;
+    margin: 15px;
+    border-radius: 10px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+}
+
+.feed-source {
+    margin: 15px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    font-size: 50px;
+    background: white;
+    padding: 10px 30px;
+    border-radius: 10px;  
+}
+
+.article {
+    margin: 15px;
+    font-family: 'Roboto', sans-serif;
+    background: white;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+.article-title {
+    margin: 20px;
+    font-weight: 700; 
+    font-size: 30px;
+}
+
+.article-description {
+    margin: 20px;
+    font-weight: 500; 
+    font-size: 15px;
+}
+
+.article-pubDate, .article-link {
+    display: inline-block;
+    margin: 0px 20px 20px 20px;
+    padding: 10px;
+    color: white;
+    background: black;
+    border-radius: 10px;
+    font-weight: 500; 
+    font-size: 15px;
+}
+
+.article-link {
+    float: right;
+    cursor: pointer;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.title {
+    margin: 10px;
+    margin-left: 25px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700; 
+    font-size: 20px;
+}
+
+input {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700; 
+    padding: 10px;
+    width: 90%;
+    border-radius: 5px;
+    border: 2px solid #E7E7E7;
+    margin-left: 15px;
+}

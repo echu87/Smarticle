@@ -1,0 +1,24 @@
+
+<app-navigation></app-navigation>
+
+<div class="source-navigation" data-simplebar>
+  <div class="title">ALL SOURCES</div>
+  <input type="text" placeholder="SEARCH FOR A SOURCE">
+  <div class="sources" *ngFor="let source of sources | async" (click)="selectedSource = source">{{ source }}</div>
+</div>
+
+<div class="source-articles">
+  <div class="feeds" *ngFor="let feed of feeds | async">
+    <div *ngIf="feed[0].source == selectedSource">
+      <div class="feed-source">{{ feed[0].source }}</div>
+      <div class="article" *ngFor="let article of feed">
+        <div class="article-title">{{ article.title }}</div>
+        <div class="article-description">{{ article.description }}</div>
+        <ul>
+          <li class="article-pubDate">{{ article.pubDate }}</li>
+          <li class="article-link" (click)="openURL(article.link)">OPEN ARTICLE</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
