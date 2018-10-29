@@ -1,24 +1,30 @@
 
 <app-navigation></app-navigation>
 
+<!--source navigation-->
 <div class="source-navigation" data-simplebar>
   <div class="title">ALL SOURCES</div>
-  <input type="text" placeholder="SEARCH FOR A SOURCE">
-  <div class="sources" *ngFor="let source of sources | async" (click)="selectedSource = source">{{ source }}</div>
+  <input type="text" id="search" placeholder="SEARCH FOR A SOURCE">
+  <div *ngFor="let source of sources | async" (click)="setFeed(source)">
+    <div *ngIf="(searchString.value).length == 0 || (source.toLowerCase()).includes((this.searchString.value).toLowerCase())">
+        <div class="sources active" *ngIf="source == selectedSource ; else notSelected">{{ source }}</div>
+        <ng-template #notSelected><div class="sources">{{ source }}</div></ng-template>
+    </div>
+  </div>
 </div>
 
+<!--source articles-->
 <div class="source-articles">
-  <div class="feeds" *ngFor="let feed of feeds | async">
-    <div *ngIf="feed[0].source == selectedSource">
-      <div class="feed-source">{{ feed[0].source }}</div>
-      <div class="article" *ngFor="let article of feed">
-        <div class="article-title">{{ article.title }}</div>
-        <div class="article-description">{{ article.description }}</div>
-        <ul>
-          <li class="article-pubDate">{{ article.pubDate }}</li>
-          <li class="article-link" (click)="openURL(article.link)">OPEN ARTICLE</li>
-        </ul>
-      </div>
+
+  <div class="feeds">
+    <div class="feed-source">{{ selectedSource }}</div>
+    <div class="article" *ngFor="let article of feed | async">
+      <div class="article-title">{{ article.title }}</div>
+      <div class="article-description">{{ article.description }}</div>
+      <ul class="article-ul">
+        <li class="article-pubDate">{{ article.pubDate }}</li>
+        <li class="article-link" (click)="openURL(article.link)">OPEN ARTICLE</li>
+      </ul>
     </div>
   </div>
 </div>

@@ -4,11 +4,11 @@ html, body {
 }
 
 html {
-    background: url(assets/background-graphic-light.svg) no-repeat center center fixed, #788099 no-repeat center center fixed; /* Old browsers */
-    background: url(assets/background-graphic-light.svg) no-repeat center center fixed, -moz-linear-gradient(45deg, #788099 0%, #b3c0dd 100%) no-repeat center center fixed; /* FF3.6-15 */
-    background: url(assets/background-graphic-light.svg) no-repeat center center fixed, -webkit-linear-gradient(45deg, #788099 0%,#b3c0dd 100%) no-repeat center center fixed; /* Chrome10-25,Safari5.1-6 */
-    background: url(assets/background-graphic-light.svg) no-repeat center center fixed, linear-gradient(45deg, #788099 0%,#b3c0dd 100%) no-repeat center center fixed; /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    filter: url(assets/background-graphic-light.svg) no-repeat center center fixed, progid:DXImageTransform.Microsoft.gradient( startColorstr='#788099', endColorstr='#b3c0dd',GradientType=1 ) no-repeat center center fixed; /* IE6-9 fallback on horizontal gradient */
+    background: url(assets/background-graphic-swoop.svg) no-repeat center center fixed, #78809980 no-repeat center center fixed, url(assets/1.jpg) no-repeat center center fixed; /* Old browsers */
+    background: url(assets/background-graphic-swoop.svg) no-repeat center center fixed, -moz-linear-gradient(45deg, #78809980 0%, #b3c0dd 100%) no-repeat center center fixed, url(assets/1.jpg) no-repeat center center fixed; /* FF3.6-15 */
+    background: url(assets/background-graphic-swoop.svg) no-repeat center center fixed, -webkit-linear-gradient(45deg, #78809980 0%,#b3c0dd 100%) no-repeat center center fixed, url(assets/1.jpg) no-repeat center center fixed; /* Chrome10-25,Safari5.1-6 */
+    background: url(assets/background-graphic-swoop.svg) no-repeat center center fixed, linear-gradient(45deg, #78809980 0%,#b3c0dd 100%) no-repeat center center fixed, url(assets/1.jpg) no-repeat center center fixed; /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: url(assets/background-graphic-swoop.svg) no-repeat center center fixed, progid:DXImageTransform.Microsoft.gradient( startColorstr='#788099', endColorstr='#b3c0dd',GradientType=1 ) no-repeat center center fixed, url(assets/1.jpg) no-repeat center center fixed; /* IE6-9 fallback on horizontal gradient */
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;

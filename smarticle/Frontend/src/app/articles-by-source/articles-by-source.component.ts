@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { ArticlePullService } from '../article-pull.service';
 
 @Component({
   selector: 'app-articles-by-source',
@@ -9,17 +9,24 @@ import { HttpClient } from '@angular/common/http';
 export class ArticlesBySourceComponent implements OnInit {
 
   sources: any
-  feeds: any
-  
-  selectedSource: any
+  feed: any
 
-  constructor(private http: HttpClient) {
-    this.sources = this.http.get(decodeURI('http://localhost:3000/sources'))
-    this.feeds = this.http.get(decodeURI('http://localhost:3000/articles-by-source'))
-  }
+  selectedSource: any
+  searchString: any
+
+  constructor(private articlePullService: ArticlePullService) { }
 
   ngOnInit() {
-    this.selectedSource = "CNN"
+    this.searchString = document.getElementById("search")
+    document.getElementById("search").onkeyup = function(){}
+
+    this.sources = this.articlePullService.getSourceList()
+    this.setFeed('CNN')
+  }
+
+  setFeed(source) {
+    this.selectedSource = source
+    this.feed = this.articlePullService.getSourceFeed(this.selectedSource)
   }
 
   openURL(link) {

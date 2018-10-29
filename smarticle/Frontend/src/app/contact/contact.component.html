@@ -1,3 +1,16 @@
-<p>
-  contact works!
-</p>
+
+<app-navigation></app-navigation>
+
+<div class="wrapper">
+  <div class="wrapper-item-centered">
+      <div class="header">CONTACT PAGE TEMPORARY HEADER</div>
+      <div class="faq">
+        <div class="faq-header">FAQ</div>
+        <div class="faq-question" *ngFor="let question of questions" (click)="currentQuestion != question.questionTitle ? currentQuestion = question.questionTitle : currentQuestion = null">
+          <div class="faq-question-title">{{ question.questionTitle }}</div>
+          <div class="faq-question-body" *ngIf="question.questionTitle == currentQuestion">{{ question.questionBody }}</div>
+        </div>
+      </div>
+  </div>
+</div>
+

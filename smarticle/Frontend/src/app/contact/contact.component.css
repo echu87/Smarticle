@@ -1,0 +1,50 @@
+.wrapper {
+    position: relative;
+    height: calc(100% - 95px); 
+    margin: 0 auto;
+    padding: 20px;
+    width: 80%;
+}
+
+.header, .faq {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    font-family: 'Roboto', sans-serif;
+}
+
+.faq {
+    margin-bottom: 0;
+}
+
+.header {
+    margin-top: 0;
+    font-weight: 700;
+    font-size: 54px;
+    text-align: center;
+}
+
+.faq-header {
+    margin-left: 25px;
+    font-weight: 700;
+    font-size: 30px
+}
+
+.faq-question {
+    cursor: pointer;
+    padding: 15px;
+    margin: 10px;
+    
+    background: #E7E7E7;
+    border-radius: 10px;
+}
+
+.faq-question-title {
+    font-weight: 700;
+}
+
+.faq-question-body {
+    margin-top: 10px;
+}

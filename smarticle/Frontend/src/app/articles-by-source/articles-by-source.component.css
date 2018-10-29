@@ -23,7 +23,7 @@
     width: 400px;
     background: white;
     overflow-x: hidden;
-    overflow-y: auto;
+    overflow-y: scroll;
 }
 
 .source-navigation::-webkit-scrollbar {
@@ -70,26 +70,26 @@
 }
 
 .article-title {
-    margin: 20px;
+    margin: 20px 20px 0px 20px;
     font-weight: 700; 
-    font-size: 30px;
+    font-size: 25px;
 }
 
 .article-description {
-    margin: 20px;
+    margin: 10px 20px 0px 20px;
     font-weight: 500; 
-    font-size: 15px;
+    
 }
 
 .article-pubDate, .article-link {
     display: inline-block;
-    margin: 0px 20px 20px 20px;
+    margin: 10px 20px 20px 20px;
     padding: 10px;
     color: white;
     background: black;
     border-radius: 10px;
     font-weight: 500; 
-    font-size: 15px;
+    font-size: 12px;
 }
 
 .article-link {
@@ -97,7 +97,7 @@
     cursor: pointer;
 }
 
-ul {
+.article-ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -115,8 +115,12 @@ input {
     font-family: 'Roboto', sans-serif;
     font-weight: 700; 
     padding: 10px;
-    width: 90%;
-    border-radius: 5px;
+    width: 336px;
+    border-radius: 10px;
     border: 2px solid #E7E7E7;
     margin-left: 15px;
+}
+
+.active {
+    background: #FDD42F;
 }

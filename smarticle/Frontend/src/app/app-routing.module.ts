@@ -23,7 +23,7 @@ const routes: Routes = [
   { path: 'user-feed', component: UserFeedComponent },
   { path: 'login', component: LoginComponent },
   // redirects the user to the landing page if they type in an invalid URL
-  { path: '**', redirectTo: '', pathMatch: 'full' }
+  { path: '**', redirectTo: '' }
 ];
 
 @NgModule({

@@ -25,7 +25,7 @@ import { LoginComponent } from './login/login.component';
     ArticlesBySourceComponent,
     ArticlesByStoryComponent,
     UserFeedComponent,
-    LoginComponent
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
