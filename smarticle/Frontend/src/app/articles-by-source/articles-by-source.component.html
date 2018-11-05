@@ -3,7 +3,7 @@
 
 <!--source navigation-->
 <div class="source-navigation" data-simplebar>
-  <div class="title">ALL SOURCES</div>
+  <div class="title">SELECT A SOURCE</div>
   <input type="text" id="search" placeholder="SEARCH FOR A SOURCE">
   <div *ngFor="let source of sources | async" (click)="setFeed(source)">
     <div *ngIf="(searchString.value).length == 0 || (source.toLowerCase()).includes((this.searchString.value).toLowerCase())">
@@ -15,10 +15,17 @@
 
 <!--source articles-->
 <div class="source-articles">
-
   <div class="feeds">
+
     <div class="feed-source">{{ selectedSource }}</div>
-    <div class="article" *ngFor="let article of feed | async">
+
+    <div class="article page-navigation">
+      <div class="page-switch cursor" (click)="prevPage()">PREVIOUS PAGE</div>
+      <div class="page-switch cursor" (click)="nextPage()">NEXT PAGE</div>
+      <div class="page-switch-count">DISPLAYING ARTICLES {{ (pg-1) * pgl + 1 }} - {{ displayCount }} / {{ count }}</div>
+    </div>
+
+    <div class="article displayed-articles" *ngFor="let article of feed | async">
       <div class="article-title">{{ article.title }}</div>
       <div class="article-description">{{ article.description }}</div>
       <ul class="article-ul">
@@ -26,5 +33,6 @@
         <li class="article-link" (click)="openURL(article.link)">OPEN ARTICLE</li>
       </ul>
     </div>
+
   </div>
 </div>

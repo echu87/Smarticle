@@ -12,8 +12,12 @@ export class ArticlePullService {
     return this.http.get(decodeURI('http://localhost:3000/sources'))
   }
 
-  getSourceFeed(source) {
-    return this.http.get(decodeURI('http://localhost:3000/articles-by-source/' + source))
+  getSourceFeed(source, pg, pgl) {
+    return this.http.get(decodeURI('http://localhost:3000/articles-by-source/' + source + '-' + pg + '-' + pgl))
+  }
+
+  getSourceCount(source) {
+    return this.http.get(decodeURI('http://localhost:3000/articles/' + source))
   }
 
 }

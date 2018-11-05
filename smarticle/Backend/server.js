@@ -29,8 +29,8 @@ router.get('/sources', function(req, res) {
     res.send(sources)
 })
 
-router.get('/articles-by-source/:source', function(req, res) {
-    article.find({'source': req.params.source}, ['source','description','pubDate','pubDateMS','link','title'], {sort:{'pubDateMS': -1}}, function(err, data) {
+router.get('/articles-by-source/:source-:pg-:pgl', function(req, res) {
+    article.find({source: req.params.source}, ['source','description','pubDate','pubDateMS','link','title'], {skip: (parseInt(req.params.pg) - 1) * parseInt(req.params.pgl), limit: parseInt(req.params.pgl), sort:{'pubDateMS': -1}}, function(err, data) {
         if (err) console.log(err)
 
         for (var i = 0; i < data.length; i++) {
@@ -65,10 +65,17 @@ router.get('/articles-by-source/:source', function(req, res) {
     })
 })
 
+router.get('/articles/:source', function(req, res) {
+    article.find({source: req.params.source}).countDocuments(function(err, data) {
+        if (err) console.log(err)
+        res.send(data.toString())
+    })
+})
+
 backend.use(router)
 
 // connect to mongo database and start express server on specified PORT
-const uri = "mongodb+srv://MatthewHobbs:<password>@biadet-news-cluster-hdjcp.mongodb.net/biadet-news-database?retryWrites=true";
+const uri = "mongodb+srv://MatthewHobbs:UNhhxOBaWngZflmJ@biadet-news-cluster-hdjcp.mongodb.net/biadet-news-database?retryWrites=true";
 mongoose.connect(uri, { useNewUrlParser: true }, function(err, client) {
     if (err) console.log(err)
 
@@ -85,21 +92,21 @@ mongoose.connect(uri, { useNewUrlParser: true }, function(err, client) {
 
 // array containing the rss-feeds and tags required to parse the article information
 const FEED = [
-    'http://rss.cnn.com/rss/cnn_world.rss','CNN', '.zn-body__paragraph',
-    'http://feeds.foxnews.com/foxnews/world','Fox News', 'p',
     'https://abcnews.go.com/abcnews/topstories','ABC News', 'p',
-    'https://www.cbsnews.com/latest/rss/main','CBS News', 'p',
-    'http://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml','The New York Times', 'p',
-    'https://www.huffingtonpost.com/section/front-page/feed','The Huffington Post', 'p',
-    'http://feeds.bbci.co.uk/news/rss.xml','BBC News', 'p',
-    'https://globalnews.ca/feed/','Global News', 'p',
-    'http://feeds.skynews.com/feeds/rss/home.xml','Sky News', 'p',
-    'https://www.ctvnews.ca/rss/ctvnews-ca-top-stories-public-rss-1.822009','CTV News', 'p',
-    'http://feeds.reuters.com/reuters/topNews','Reuters', 'p',
-    'http://www.thestar.com/content/thestar/feed.RSSManagerServlet.topstories.rss','Toronto Star', 'p',
-    'http://www.latimes.com/rss2.0.xml','The Los Angeles Times', 'p',
     'https://www.aljazeera.com/xml/rss/all.xml', 'Al Jazeera', 'p',
-    'https://www.cnbc.com/id/100727362/device/rss/rss.html', 'CNBC', 'p'
+    'http://feeds.bbci.co.uk/news/rss.xml','BBC News', 'p',
+    'https://www.cbsnews.com/latest/rss/main','CBS News', 'p',
+    'https://www.cnbc.com/id/100727362/device/rss/rss.html', 'CNBC', 'p',
+    'http://rss.cnn.com/rss/cnn_world.rss','CNN', '.zn-body__paragraph',
+    'https://www.ctvnews.ca/rss/ctvnews-ca-top-stories-public-rss-1.822009','CTV News', 'p',
+    'http://feeds.foxnews.com/foxnews/world','Fox News', 'p',
+    'https://globalnews.ca/feed/','Global News', 'p',
+    'http://feeds.reuters.com/reuters/topNews','Reuters', 'p',
+    'http://feeds.skynews.com/feeds/rss/home.xml','Sky News', 'p',
+    'https://www.huffingtonpost.com/section/front-page/feed','The Huffington Post', 'p',
+    'http://www.latimes.com/rss2.0.xml','The Los Angeles Times', 'p',
+    'http://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml','The New York Times', 'p',
+    'http://www.thestar.com/content/thestar/feed.RSSManagerServlet.topstories.rss','Toronto Star', 'p',
 ]
 
 // function to pull all article information from the specified sources and save it to the mongo database
@@ -155,20 +162,12 @@ function parseArticles() {
         setTimeout(resolve, 5000)
     })
 
-    promise.then(() => {
-        var currentArticleTitles = new Array()
-        // pull all articles from mongo database
-        article.find((err, data) => {
+    promise.then(function() {
+        article.find({pubDateMS: {$lt: (Date.parse(new Date()) - 1209600000)}},(err, data) => {
             if (err) console.log(err)
-            // loop through data and delete all old articles
-            // this section of code includes a currentArticles array to delete accidental duplicate articles,
-            // articles are duplicated if the function is accidentally called twice or the rss feed contains the same article in two places
             data.forEach(article => {
-                if (new Date().getTime() - article.pubDateMS > 1209600000 || currentArticleTitles.includes(article.title) || article.description.length < 10) {
-                    console.log('[REMOVED] [' + article.source + '] ' + article.title)
-                    article.collection.deleteOne({ _id: article._id })
-                }
-                currentArticleTitles.push(article.title)
+                console.log('[REMOVED] [' + article.source + '] ' + article.title)
+                article.collection.deleteOne({ _id: article._id })
             })
             console.log('finished updating mongo database @ ' + Date())
         });
