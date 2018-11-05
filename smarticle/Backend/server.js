@@ -75,7 +75,7 @@ router.get('/articles/:source', function(req, res) {
 backend.use(router)
 
 // connect to mongo database and start express server on specified PORT
-const uri = "mongodb+srv://MatthewHobbs:UNhhxOBaWngZflmJ@biadet-news-cluster-hdjcp.mongodb.net/biadet-news-database?retryWrites=true";
+const uri = "mongodb+srv://MatthewHobbs:<password-here>@biadet-news-cluster-hdjcp.mongodb.net/biadet-news-database?retryWrites=true";
 mongoose.connect(uri, { useNewUrlParser: true }, function(err, client) {
     if (err) console.log(err)
 
