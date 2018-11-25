@@ -6,33 +6,35 @@ const mongoose = require('mongoose')
 const parser = require('rss-parser')
 const request = require('request')
 const cheerio = require('cheerio')
+const bodyParser = require("body-parser")
+
 
 // define corsOptions (i.e. whitelisted url)
 const corsOptions = {
-    origin: 'http://localhost:4200',
+    origin: 'http://smarticle.duckdns.org',
     optionsSuccessStatus: 200
 }
 
 // initialize express router and express server and pass corsOptions to server, define PORT variable (i.e. what PORT will we run our server on)
 const backend = express()
 backend.use(cors(corsOptions))
-
-// backend.use(cors(corsOptions))
 const router = express.Router()
 const PORT = 3000
+backend.use(bodyParser.urlencoded({ extended: false }));
+backend.use(bodyParser.json());
 
 // routes
-router.get('/sources', function(req, res) {
+router.get('/api/sources', function(req, res) {
     var sources = new Array()
     for (var i = 1; i < FEED.length; i+=3)
         sources.push(FEED[i])
     res.send(sources)
 })
 
-router.get('/articles-by-source/:source-:pg-:pgl', function(req, res) {
+router.get('/api/articles-by-source/:source-:pg-:pgl', function(req, res) {
     article.find({source: req.params.source}, ['source','description','pubDate','pubDateMS','link','title'], {skip: (parseInt(req.params.pg) - 1) * parseInt(req.params.pgl), limit: parseInt(req.params.pgl), sort:{'pubDateMS': -1}}, function(err, data) {
         if (err) console.log(err)
-
+        /api
         for (var i = 0; i < data.length; i++) {
             let timeInDays = Math.floor((new Date - data[i].pubDateMS) / 86400000)
             if (timeInDays < 0)
@@ -65,28 +67,56 @@ router.get('/articles-by-source/:source-:pg-:pgl', function(req, res) {
     })
 })
 
-router.get('/articles/:source', function(req, res) {
+router.get('/api/articles-length/:source', function(req, res) {
     article.find({source: req.params.source}).countDocuments(function(err, data) {
         if (err) console.log(err)
         res.send(data.toString())
     })
 })
 
+router.post("/api/set-user", function(req, res) {
+    user.find({email: req.body.email}).countDocuments(function(err, data) {
+        if (err) console.log(err)
+        if (data == 0) {
+            new user({email: req.body.email, tags: []}).save(err => { 
+                if (err) console.log(err)
+                console.log('saved ' + req.body.email + ' to database')
+            })
+        }
+    })
+})
+
+router.post("/api/add-tags", function(req, res) {
+    user.updateOne({email: req.body.email}, {$push:{tags: req.body.tag}}, {upsert: true}, function(err) {
+        if (err) console.log(err)
+    })
+})
+
+router.get('/api/tags/:email', function(req, res) {
+    user.find({email: req.params.email}, function(err, data) {
+        if (err) console.log(err)
+        console.log(data.tags)
+        res.send(data.tags)
+    })
+})
+
 backend.use(router)
 
 // connect to mongo database and start express server on specified PORT
-const uri = "mongodb+srv://MatthewHobbs:UNhhxOBaWngZflmJ@biadet-news-cluster-hdjcp.mongodb.net/biadet-news-database?retryWrites=true";
+const uri = "mongodb+srv://Matthew:<password>@smarticlecluster-odduz.mongodb.net/test?retryWrites=true";
 mongoose.connect(uri, { useNewUrlParser: true }, function(err, client) {
     if (err) console.log(err)
 
     // define article schema for passing information to database
+    userSchema = new mongoose.Schema({ email: 'string', tags: [{type: String}] })
+    user = mongoose.model('user', userSchema)
     articleSchema = new mongoose.Schema({ source: 'string', title: 'string', link: 'string', pubDate: 'string', pubDateMS: 'string', description: 'string', content: 'string' })
     article = mongoose.model('article', articleSchema)
 
     backend.listen(PORT, function() {
         console.log('server started on port ' + PORT)
         // schedule to call parseArticle function on a regular basis
-        cron.schedule('*/1 * * * *', () => { parseArticles() })
+        cron.schedule('*/5 * * * *', () => { parseArticles() })
     })
 })
 
@@ -126,10 +156,11 @@ function parseArticles() {
                         new Promise((resolve, reject) => { 
                             // push the following information to the next step of the promise
                             let tag = FEED[i+2], source = FEED[i+1];
-                            article.find({'title': item.title }, function(err, data) {
+                            article.find({ 'title': item.title }, function(err, data) {
                                 if (err) console.log(err)
+
                                 if (data.length == 0) resolve([tag, source, item.title, item.link, item.pubDate, Date.parse(new Date(item.pubDate)), item.contentSnippet])
-                                else (resolve(null))
+                                else resolve(null)
                             })
                         }).then(result => {
                             if (result != null) {
@@ -148,7 +179,7 @@ function parseArticles() {
                                         // push article information to mongo database
                                         new article({ source: result[1], title: result[2], link: result[3], pubDate: result[4], pubDateMS: result[5], description: result[6], content: iContent }).save(err => { 
                                             if (err) console.log(err)
-                                        });
+                                        })
                                         console.log('[ADDED] [' + result[1] + '] ' + result[2])
                                     }
                                 }) 
@@ -163,6 +194,7 @@ function parseArticles() {
     })
 
     promise.then(function() {
+        console.log('delete old articles')
         article.find({pubDateMS: {$lt: (Date.parse(new Date()) - 1209600000)}},(err, data) => {
             if (err) console.log(err)
             data.forEach(article => {

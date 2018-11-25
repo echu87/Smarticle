@@ -1,5 +1,5 @@
 .source-articles {
-    margin-left: 420px; 
+    margin-left: 320px; 
     height: calc(100% - 55px); 
     overflow-x: hidden;
     overflow-y: scroll;
@@ -16,11 +16,10 @@
 
 .source-navigation {
     float: left;
-    position: relative;
     margin: 0;
     padding: 10px;
     height: calc(100% - 75px); 
-    width: 400px;
+    width: 300px;
     background: white;
     overflow-x: hidden;
     overflow-y: scroll;
@@ -78,6 +77,28 @@
 }
 
 .page-switch  {
+    display: inline-block;
+    margin: 10px 5px;
+    padding: 10px;
+    background: black;
+    color: white;
+    border-radius: 10px;
+    font-weight: 700; 
+    font-size: 12px;
+}
+
+.page-count  {
+    display: inline-block;
+    margin: 10px 5px;
+    padding: 10px;
+    background: #E7E7E7;
+    color: black;
+    border-radius: 10px;
+    font-weight: 700; 
+    font-size: 12px;
+}
+
+.page-count-header  {
     display: inline-block;
     margin: 10px 5px;
     padding: 10px;
@@ -153,7 +174,7 @@ input {
     font-family: 'Roboto', sans-serif;
     font-weight: 700; 
     padding: 10px;
-    width: 336px;
+    width: 236px;
     border-radius: 10px;
     border: 2px solid #E7E7E7;
     margin-left: 15px;

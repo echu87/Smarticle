@@ -9,15 +9,15 @@ export class ArticlePullService {
   constructor(private http: HttpClient) { }
 
   getSourceList() {
-    return this.http.get(decodeURI('http://localhost:3000/sources'))
+    return this.http.get(decodeURI('http://smarticle.duckdns.org:3000/api/sources'))
   }
 
   getSourceFeed(source, pg, pgl) {
-    return this.http.get(decodeURI('http://localhost:3000/articles-by-source/' + source + '-' + pg + '-' + pgl))
+    return this.http.get(decodeURI('http://smarticle.duckdns.org:3000/api/articles-by-source/' + source + '-' + pg + '-' + pgl))
   }
 
   getSourceCount(source) {
-    return this.http.get(decodeURI('http://localhost:3000/articles/' + source))
+    return this.http.get(decodeURI('http://smarticle.duckdns.org:3000/api/articles-length/' + source))
   }
 
 }

@@ -1,0 +1,60 @@
+.tag-navigation {
+    float: left;
+    margin: 0;
+    padding: 10px;
+    height: calc(100% - 75px); 
+    width: 300px;
+    background: white;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+.tag-navigation::-webkit-scrollbar {
+    background-color: rgb(120, 128, 153);
+    width: 10px;
+}
+
+.tag-navigation::-webkit-scrollbar-thumb {
+    background-color: rgb(78, 84, 100);
+}
+
+.tag-item {
+    cursor: pointer;
+    margin: 0;
+    background: #E7E7E7;
+    padding: 10px;
+    padding-left: 15px;
+    margin: 15px;
+    border-radius: 10px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+}
+
+.title {
+    margin: 10px;
+    margin-left: 25px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700; 
+    font-size: 20px;
+}
+
+input {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700; 
+    padding: 10px;
+    width: 236px;
+    border-radius: 10px;
+    border: 2px solid #E7E7E7;
+    margin-left: 15px;
+}
+
+.button {
+    cursor: pointer;
+    margin: 0;
+    background: #E7E7E7;
+    padding: 10px 15px;
+    margin: 15px;
+    border-radius: 10px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+}

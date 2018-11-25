@@ -5,13 +5,11 @@
     padding: 20px;
 }
   
-.wrapper-item-centered {
-    transform: translate(-50%, -50%);
-    position: absolute;
-    width: 80%;
-    top: 50%;
-    left: 50%;
+.wrapper {
+    position: relative;
+    margin: 0 auto;
     padding: 20px;
+    width: 80%;
 }
 
 .header, .body {

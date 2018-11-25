@@ -1,6 +1,15 @@
 <ul>
   <li style="margin-left:100px"><a id="logo" routerLink="">SMARTICLE</a></li>
-  <li style="float:right;margin-right:100px"><a id="login" routerLink="/login">LOGIN / SIGN UP</a></li>
+
+  <div id="dropdown" class="dropdown" style="float:right; margin-right:100px">
+    <li id="user"></li>
+    <div class="dropdown-content">
+      <div id="sign-out" class="dropdown-item" (click)="signOut()">LOGOUT</div>
+    </div>
+  </div>
+
+  <li id="login" style="float:right;margin-right:100px"><a class="login" (click)="signIn()">SIGN IN WITH GOOGLE</a></li>
+
   <li style="float:right"><a id="contact" routerLink="/contact">CONTACT</a></li>
   <li style="float:right"><a id="about" routerLink="/about">ABOUT</a></li>
   <li style="float:right"><a id="user-feed" routerLink="/user-feed">USER FEED</a></li>

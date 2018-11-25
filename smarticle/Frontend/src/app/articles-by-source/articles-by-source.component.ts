@@ -23,7 +23,7 @@ export class ArticlesBySourceComponent implements OnInit {
 
   ngOnInit() {
     this.pg = 1
-    this.pgl = 20
+    this.pgl = 25
 
     this.searchString = document.getElementById("search")
     document.getElementById("search").onkeyup = function(){}
@@ -35,15 +35,20 @@ export class ArticlesBySourceComponent implements OnInit {
   }
 
   setFeed(source) {
-    this.selectedSource = source
-    this.updateFeed()
-
     this.pg = 1
+    var isCount
+    if (this.pgl == this.count)
+      isCount = true
+    
+    this.selectedSource = source
     var countFeed = this.articlePullService.getSourceCount(this.selectedSource)
     countFeed.subscribe(count => {
       this.count = count
+      if (isCount)
+        this.pgl = count
+      this.updateFeed()
+      this.setCount()
     })
-    this.setCount()
   }
 
   nextPage() {    
@@ -53,13 +58,14 @@ export class ArticlesBySourceComponent implements OnInit {
     }   
 
     this.setCount()
+    
   }
 
   prevPage() {
     if ((this.pg - 1) * this.pgl != 0) {
       this.pg -= 1
       this.updateFeed()
-    } 
+    }
 
     this.setCount()
   }
@@ -70,12 +76,45 @@ export class ArticlesBySourceComponent implements OnInit {
 
   setCount() {
     this.displayCount = this.pg * this.pgl
-    if (this.pg * this.pgl > this.count)
+    if (this.pg * this.pgl >= this.count)
       this.displayCount = this.count
+    this.setColor()
+  }
+
+  setColor() {
+    document.getElementById('prev').style.background = "black"
+    document.getElementById('prev').style.color = "white"
+    document.getElementById('next').style.background = "black"
+    document.getElementById('next').style.color = "white"
+
+    document.getElementById('prev').classList.add('cursor')
+    document.getElementById('next').classList.add('cursor')
+
+    if (this.pg == 1) {
+      document.getElementById('prev').style.background = "#E7E7E7"
+      document.getElementById('prev').style.color = "black"
+      document.getElementById('prev').classList.remove('cursor')
+    } else if (this.pg * this.pgl >= this.count) {
+      document.getElementById('next').style.background = "#E7E7E7"
+      document.getElementById('next').style.color = "black"
+      document.getElementById('next').classList.remove('cursor')
+    }
+
+    if (this.pgl == this.count)
+      document.getElementById('all').style.background = "#FDD42F"
+    else
+      document.getElementById('all').style.background = "#E7E7E7"
+    var types = [10, 25, 50]
+    types.forEach(itemNum => {
+        if (this.pgl == itemNum)
+          document.getElementById('' + itemNum).style.background = "#FDD42F"
+        else
+          document.getElementById('' + itemNum).style.background = "#E7E7E7"
+    })
   }
 
   openURL(link) {
-    window.open(link);
+    window.open(link)
   }
 
 }

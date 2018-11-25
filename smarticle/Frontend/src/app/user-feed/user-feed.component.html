@@ -1,6 +1,13 @@
 
-<app-navigation></app-navigation>
+<div class="tag-navigation">
 
-<p>
-  user-feed works!
-</p>
+  <div class="title">ADD A TAG</div>  
+  <input type="text" id="search" placeholder="ENTER TAG NAME">
+  <div class="button" (click)="addTag()">ADD TAG</div>
+
+  <div class="title">ACTIVE TAGS</div>  
+  <div *ngFor="let tag of tags | async">
+    <p>tag</p>
+  </div>
+
+</div>
