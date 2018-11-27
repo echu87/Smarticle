@@ -16,6 +16,11 @@ import { UserFeedComponent } from './user-feed/user-feed.component';
 import { LoginService } from './login.service'
 
 @NgModule({
+  imports: [
+    BrowserModule,
+    HttpClientModule,
+    AppRoutingModule
+  ],
   declarations: [
     AppComponent,
     NavigationComponent,
@@ -26,11 +31,6 @@ import { LoginService } from './login.service'
     ArticlesBySourceComponent,
     ArticlesByStoryComponent,
     UserFeedComponent,
-  ],
-  imports: [
-    BrowserModule,
-    HttpClientModule,
-    AppRoutingModule
   ],
   providers: [LoginService],
   bootstrap: [AppComponent]

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { LoginService } from './login.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpService } from './http.service';
 
 var http
 
@@ -16,8 +16,8 @@ var profile = ['','','','']
 })
 export class AppComponent {
 
-  constructor(httpClient: HttpClient) {
-    http = httpClient
+  constructor(httpService: HttpService) {
+    http = httpService
     this.handleClientLoad()
   }
   
@@ -34,24 +34,36 @@ export class AppComponent {
       GoogleAuth = gapi.auth2.getAuthInstance()
       GoogleAuth.isSignedIn.listen(function() { setSigninStatus() })
       setSigninStatus()
+      
 
       function setSigninStatus() {
+        var loginService = new LoginService()
         if (GoogleAuth.currentUser.get().hasGrantedScopes('profile email')) {
           profile = [GoogleAuth.currentUser.get().getBasicProfile().getId(),
                      GoogleAuth.currentUser.get().getBasicProfile().getName(),
                      GoogleAuth.currentUser.get().getBasicProfile().getEmail(),
                      GoogleAuth.currentUser.get().getBasicProfile().getImageUrl()]
-          let email = {'email': profile[2], 'tags': []}
-          http.post("http://smarticle.duckdns.org:3000/api/set-user", email).toPromise()
-          .then(console.log('signed in'))
+                
+          http.isUser(profile[2]).subscribe(data => {
+            if (!data) {
+              let email = {'email': profile[2], 'tags': []}
+              let userCreatePromise = http.addUser(email).toPromise()
+              userCreatePromise.then(console.log('signed in as ' + profile[2]))
+              loginService.setProfile(profile[0], profile[1], profile[2], profile[3], [])
+            } else {
+              http.getTags(profile[2]).subscribe(tag => {
+                console.log('signed in as ' + profile[2])
+                loginService.setProfile(profile[0], profile[1], profile[2], profile[3], tag)
+              })
+            }
+          })
         } else {
+          console.log('signed out')
           profile = ['','','','']
+          loginService.setProfile(profile[0], profile[1], profile[2], profile[3], [])
         }
-
-        var loginService = new LoginService
-        loginService.setProfile(profile[0],profile[1],profile[2],profile[3])
       }
-
+  
     })
   }
 

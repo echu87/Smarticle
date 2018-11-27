@@ -1,6 +1,6 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { ArticlePullService } from './article-pull.service';
+import { ArticlePullService } from './http.service';
 
 describe('ArticlePullService', () => {
   beforeEach(() => {

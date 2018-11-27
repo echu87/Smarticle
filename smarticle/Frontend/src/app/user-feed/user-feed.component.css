@@ -7,6 +7,7 @@
     background: white;
     overflow-x: hidden;
     overflow-y: scroll;
+    font-family: 'Roboto', sans-serif;
 }
 
 .tag-navigation::-webkit-scrollbar {
@@ -26,14 +27,12 @@
     padding-left: 15px;
     margin: 15px;
     border-radius: 10px;
-    font-family: 'Roboto', sans-serif;
     font-weight: 700;
 }
 
 .title {
     margin: 10px;
     margin-left: 25px;
-    font-family: 'Roboto', sans-serif;
     font-weight: 700; 
     font-size: 20px;
 }
@@ -48,13 +47,56 @@ input {
     margin-left: 15px;
 }
 
-.button {
-    cursor: pointer;
-    margin: 0;
+.tag-settings {
+    margin: 15px;
+    padding: 10px;
+    border-radius: 10px;
+    font-weight: 700;
     background: #E7E7E7;
+}
+
+.delete-button {
+    color: black;
+    background: white;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 10px;
+    font-weight: 700;
+}
+
+.add-button, .item {
+    cursor: pointer;
     padding: 10px 15px;
     margin: 15px;
     border-radius: 10px;
-    font-family: 'Roboto', sans-serif;
     font-weight: 700;
 }
+
+.add-button {
+    background: #FDD42F;
+}
+
+.item {
+    background: #E7E7E7;
+}
+
+.settings-icon {
+    cursor: pointer;
+    float: right;
+    vertical-align: -20%;
+    margin-right: 14px;
+}
+
+.delete-icon {
+    color: white;
+    display: inline-flex;
+    float: right;
+    margin-top: -3px;
+    margin-right: -6px;
+}
+
+.save {
+    background: #FDD42F;
+}
+
+

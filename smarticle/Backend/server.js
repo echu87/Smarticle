@@ -74,29 +74,40 @@ router.get('/api/articles-length/:source', function(req, res) {
     })
 })
 
-router.post("/api/set-user", function(req, res) {
-    user.find({email: req.body.email}).countDocuments(function(err, data) {
+router.get('/api/is-user/:email', function(req, res) {
+    user.find({email: req.params.email}).countDocuments(function(err, data) {
+        if (err) console.log(err)
+        if (data != 0)
+            res.send(true)
+        else
+            res.send(false)
+    })
+})
+
+router.post('/api/set-user', function(req, res) {
+    new user({email: req.body.email, tags: []}).save(err => { if (err) console.log(err) })
+})
+
+router.post('/api/add-tags', function(req, res) {
+    user.find({email: req.body.email, tags: req.body.tag}).countDocuments(function(err, data) {
         if (err) console.log(err)
         if (data == 0) {
-            new user({email: req.body.email, tags: []}).save(err => { 
-                if (err) console.log(err)
-                console.log('saved ' + req.body.email + ' to database')
-            })
-        }
+            user.updateOne({email: req.body.email}, {$push:{tags: req.body.tag}}, {upsert: true}, function(err, data) { if (err) console.log(err) })
+            res.send(true)
+        } else
+            res.send(false)
     })
 })
 
-router.post("/api/add-tags", function(req, res) {
-    user.updateOne({email: req.body.email}, {$push:{tags: req.body.tag}}, {upsert: true}, function(err) {
-        if (err) console.log(err)
-    })
+router.post('/api/delete-tags', function(req, res) {
+    user.updateOne({email: req.body.email}, {$pull:{tags: req.body.tag}}, {upsert: true}, function(err, data) { if (err) console.log(err) })
 })
 
-router.get('/api/tags/:email', function(req, res) {
+
+router.get('/api/get-tags/:email', function(req, res) {
     user.find({email: req.params.email}, function(err, data) {
         if (err) console.log(err)
-        console.log(data.tags)
-        res.send(data.tags)
+        else res.send(data[0].tags)
     })
 })
 

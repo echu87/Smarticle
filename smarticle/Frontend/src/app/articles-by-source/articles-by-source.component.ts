@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ArticlePullService } from '../article-pull.service';
+import { HttpService } from '../http.service';
 
 @Component({
   selector: 'app-articles-by-source',
@@ -19,7 +19,7 @@ export class ArticlesBySourceComponent implements OnInit {
   count: any
   displayCount: any
 
-  constructor(private articlePullService: ArticlePullService) { }
+  constructor(private httpService: HttpService) { }
 
   ngOnInit() {
     this.pg = 1
@@ -28,7 +28,7 @@ export class ArticlesBySourceComponent implements OnInit {
     this.searchString = document.getElementById("search")
     document.getElementById("search").onkeyup = function(){}
 
-    this.sources = this.articlePullService.getSourceList()
+    this.sources = this.httpService.getSourceList()
     this.sources.subscribe(sources => {
       this.setFeed(sources[0])
     })
@@ -41,7 +41,7 @@ export class ArticlesBySourceComponent implements OnInit {
       isCount = true
     
     this.selectedSource = source
-    var countFeed = this.articlePullService.getSourceCount(this.selectedSource)
+    var countFeed = this.httpService.getSourceCount(this.selectedSource)
     countFeed.subscribe(count => {
       this.count = count
       if (isCount)
@@ -71,7 +71,7 @@ export class ArticlesBySourceComponent implements OnInit {
   }
 
   updateFeed() {
-    this.feed = this.articlePullService.getSourceFeed(this.selectedSource, this.pg, this.pgl)
+    this.feed = this.httpService.getSourceFeed(this.selectedSource, this.pg, this.pgl)
   }
 
   setCount() {
