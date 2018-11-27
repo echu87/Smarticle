@@ -1,6 +1,19 @@
 
-<app-navigation></app-navigation>
+<div *ngIf="signedIn" class="tag-navigation">
 
-<p>
-  user-feed works!
-</p>
+  <div class="title">ADD A TAG</div>  
+  <input type="text" id="search" placeholder="ENTER TAG NAME">
+  <div class="add-button" (click)="addTag()">Add Tag</div>
+
+  <div class="title">ACTIVE TAGS<i (click)="changeDeleteOption()" class="material-icons settings-icon">settings</i></div>  
+  <div *ngFor="let tag of tags" id="tag-list">
+    <div *ngIf="!deleteOption" class="item">{{ tag }}</div>
+    <div *ngIf="deleteOption" class="item" (click)="addDeleteTag(tag)">{{ tag }}<i id="{{tag}}" class="material-icons delete-icon">add_circle</i></div>
+  </div>
+  <div *ngIf="deleteOption" class="item save" (click)="deleteTags()">Delete {{deleteTagsArray.length}} Tag(s)</div>
+  <div *ngIf="deleteOption" class="item cancel" (click)="changeDeleteOption()">Cancel</div>
+</div>
+
+<div *ngIf="!signedIn" class="button">
+  YOU MUST BE SIGNED IN TO USE THE USER FEED
+</div>

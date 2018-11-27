@@ -9,7 +9,6 @@ import { SettingsComponent } from './settings/settings.component';
 import { ArticlesBySourceComponent } from './articles-by-source/articles-by-source.component';
 import { ArticlesByStoryComponent } from './articles-by-story/articles-by-story.component';
 import { UserFeedComponent } from './user-feed/user-feed.component';
-import { LoginComponent } from './login/login.component';
 
 // stores the required routes, these routes are split up into two properties;
 // path: a string that matches the URL in the browser address bar, component: the component that the router should use when navigating to this route
@@ -21,7 +20,6 @@ const routes: Routes = [
   { path: 'articles-by-source', component: ArticlesBySourceComponent },
   { path: 'articles-by-story', component: ArticlesByStoryComponent },
   { path: 'user-feed', component: UserFeedComponent },
-  { path: 'login', component: LoginComponent },
   // redirects the user to the landing page if they type in an invalid URL
   { path: '**', redirectTo: '' }
 ];

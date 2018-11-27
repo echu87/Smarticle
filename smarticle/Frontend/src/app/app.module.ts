@@ -12,9 +12,15 @@ import { SettingsComponent } from './settings/settings.component';
 import { ArticlesBySourceComponent } from './articles-by-source/articles-by-source.component';
 import { ArticlesByStoryComponent } from './articles-by-story/articles-by-story.component';
 import { UserFeedComponent } from './user-feed/user-feed.component';
-import { LoginComponent } from './login/login.component';
+
+import { LoginService } from './login.service'
 
 @NgModule({
+  imports: [
+    BrowserModule,
+    HttpClientModule,
+    AppRoutingModule
+  ],
   declarations: [
     AppComponent,
     NavigationComponent,
@@ -25,14 +31,8 @@ import { LoginComponent } from './login/login.component';
     ArticlesBySourceComponent,
     ArticlesByStoryComponent,
     UserFeedComponent,
-    LoginComponent,
   ],
-  imports: [
-    BrowserModule,
-    HttpClientModule,
-    AppRoutingModule
-  ],
-  providers: [],
+  providers: [LoginService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

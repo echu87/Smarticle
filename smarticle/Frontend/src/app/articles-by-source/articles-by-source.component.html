@@ -1,8 +1,13 @@
 
-<app-navigation></app-navigation>
-
 <!--source navigation-->
-<div class="source-navigation" data-simplebar>
+<div class="source-navigation">
+  <div class="title">ARTICLES PER PAGE</div>
+  
+  <div id="10" class="sources" (click)="pg=1;pgl=10;updateFeed();setCount();">10 Articles Per Page</div>
+  <div id="25" class="sources" (click)="pg=1;pgl=25;updateFeed();setCount();">25 Articles Per Page</div>
+  <div id="50" class="sources" (click)="pg=1;pgl=50;updateFeed();setCount();">50 Articles Per Page</div>
+  <div id="all" class="sources" (click)="pg=1;pgl=count;updateFeed();setCount();">All Articles</div>
+    
   <div class="title">SELECT A SOURCE</div>
   <input type="text" id="search" placeholder="SEARCH FOR A SOURCE">
   <div *ngFor="let source of sources | async" (click)="setFeed(source)">
@@ -16,12 +21,12 @@
 <!--source articles-->
 <div class="source-articles">
   <div class="feeds">
-
+    
     <div class="feed-source">{{ selectedSource }}</div>
 
     <div class="article page-navigation">
-      <div class="page-switch cursor" (click)="prevPage()">PREVIOUS PAGE</div>
-      <div class="page-switch cursor" (click)="nextPage()">NEXT PAGE</div>
+      <div id="prev" class="page-switch cursor" (click)="prevPage()">PREVIOUS PAGE</div>
+      <div id="next" class="page-switch cursor" (click)="nextPage()">NEXT PAGE</div>
       <div class="page-switch-count">DISPLAYING ARTICLES {{ (pg-1) * pgl + 1 }} - {{ displayCount }} / {{ count }}</div>
     </div>
 

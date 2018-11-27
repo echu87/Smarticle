@@ -1,0 +1,102 @@
+.tag-navigation {
+    float: left;
+    margin: 0;
+    padding: 10px;
+    height: calc(100% - 75px); 
+    width: 300px;
+    background: white;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    font-family: 'Roboto', sans-serif;
+}
+
+.tag-navigation::-webkit-scrollbar {
+    background-color: rgb(120, 128, 153);
+    width: 10px;
+}
+
+.tag-navigation::-webkit-scrollbar-thumb {
+    background-color: rgb(78, 84, 100);
+}
+
+.tag-item {
+    cursor: pointer;
+    margin: 0;
+    background: #E7E7E7;
+    padding: 10px;
+    padding-left: 15px;
+    margin: 15px;
+    border-radius: 10px;
+    font-weight: 700;
+}
+
+.title {
+    margin: 10px;
+    margin-left: 25px;
+    font-weight: 700; 
+    font-size: 20px;
+}
+
+input {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700; 
+    padding: 10px;
+    width: 236px;
+    border-radius: 10px;
+    border: 2px solid #E7E7E7;
+    margin-left: 15px;
+}
+
+.tag-settings {
+    margin: 15px;
+    padding: 10px;
+    border-radius: 10px;
+    font-weight: 700;
+    background: #E7E7E7;
+}
+
+.delete-button {
+    color: black;
+    background: white;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 10px;
+    font-weight: 700;
+}
+
+.add-button, .item {
+    cursor: pointer;
+    padding: 10px 15px;
+    margin: 15px;
+    border-radius: 10px;
+    font-weight: 700;
+}
+
+.add-button {
+    background: #FDD42F;
+}
+
+.item {
+    background: #E7E7E7;
+}
+
+.settings-icon {
+    cursor: pointer;
+    float: right;
+    vertical-align: -20%;
+    margin-right: 14px;
+}
+
+.delete-icon {
+    color: white;
+    display: inline-flex;
+    float: right;
+    margin-top: -3px;
+    margin-right: -6px;
+}
+
+.save {
+    background: #FDD42F;
+}
+
+

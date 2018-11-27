@@ -70,12 +70,12 @@ li a {
     border-radius: 10px;
 }
 
-#login {
+#learn-more {
     color: white;
     background: black;
 }
 
-#login:hover{
+#learn-more:hover{
     transition: color 0.2s ease;
     color: #FDD42F;
 } 
